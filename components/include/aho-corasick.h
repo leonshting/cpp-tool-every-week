@@ -21,12 +21,8 @@ struct AutomatonNode {
     AutomatonNode *terminal_link;
 };
 
-// Returns a corresponding trie transition 'nullptr' otherwise.
 AutomatonNode *GetTrieTransition(AutomatonNode *node, char character);
 
-// Returns an automaton transition, updates 'node->automaton_transitions_cache'
-// if necessary.
-// Provides constant amortized runtime.
 AutomatonNode *GetAutomatonTransition(AutomatonNode *node, const AutomatonNode *root,
                                       char character);
 
