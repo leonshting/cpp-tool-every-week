@@ -5,13 +5,14 @@
 
 using namespace std;
 
-
 class Solution {
 public:
-    template<typename T> using arr = array<T, 96>;
-    template<typename T> using arr_short = array<T, 16>;
+    template <typename T>
+    using arr = array<T, 96>;
+    template <typename T>
+    using arr_short = array<T, 16>;
 
-    vector<string> answer(const arr<bool>& sol, uint8_t n) {
+    vector<string> answer(const arr<bool> &sol, uint8_t n) {
         vector<string> ans;
 
         for (size_t ri = 0; ri < n; ++ri) {
@@ -26,13 +27,9 @@ public:
         return ans;
     }
 
-    void solveNQueensRec(
-        uint8_t left,
-        uint8_t size,
-        const arr_short<bool> &row_wise,
-        const arr<bool> &queens,
-        const arr<bool> &restricted,
-        vector<vector<string>> &ans) {
+    void solveNQueensRec(uint8_t left, uint8_t size, const arr_short<bool> &row_wise,
+                         const arr<bool> &queens, const arr<bool> &restricted,
+                         vector<vector<string>> &ans) {
 
         if (left == 0) {
             if (std::accumulate(queens.begin(), queens.end(), 0) != size) {
@@ -67,25 +64,29 @@ public:
                 int mdr = ri, mdc = ci;
                 while (mdr < size && mdc < size) {
                     res_copy[mdr * size + mdc] = true;
-                    ++mdr; ++mdc;
+                    ++mdr;
+                    ++mdc;
                 }
 
                 mdr = ri, mdc = ci;
                 while (mdr >= 0 && mdc >= 0) {
                     res_copy[mdr * size + mdc] = true;
-                    --mdr; --mdc;
+                    --mdr;
+                    --mdc;
                 }
 
                 mdr = ri, mdc = ci;
                 while (mdr < size && mdc < size && mdr >= 0 && mdc >= 0) {
                     res_copy[mdr * size + mdc] = true;
-                    ++mdr; --mdc;
+                    ++mdr;
+                    --mdc;
                 }
 
                 mdr = ri, mdc = ci;
                 while (mdr < size && mdc < size && mdr >= 0 && mdc >= 0) {
                     res_copy[mdr * size + mdc] = true;
-                    --mdr; ++mdc;
+                    --mdr;
+                    ++mdc;
                 }
 
                 auto queens_copy = queens;
@@ -94,17 +95,18 @@ public:
                 queens_copy[ri * size + ci] = true;
                 rw_copy[ri] = true;
 
-                solveNQueensRec(
-                    left - 1, size, rw_copy,
-                    queens_copy, res_copy, ans);
+                solveNQueensRec(left - 1, size, rw_copy, queens_copy, res_copy, ans);
             }
         }
-
     }
 
     vector<vector<string>> solveNQueens(int n) {
-        arr<bool> q, r; q.fill(false); r.fill(false);
-        arr_short<bool> rw; rw.fill(false);
+        arr<bool> q, r;
+        q.fill(false);
+        r.fill(false);
+
+        arr_short<bool> rw;
+        rw.fill(false);
 
         vector<vector<string>> answer;
 
@@ -112,7 +114,6 @@ public:
         return answer;
     }
 };
-
 
 int main() {
     auto s = Solution();
